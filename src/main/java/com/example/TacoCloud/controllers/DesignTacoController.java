@@ -7,6 +7,7 @@ import com.example.TacoCloud.entities.TacoOrder;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -60,7 +61,7 @@ public class DesignTacoController {
   }
 
   @PostMapping
-  public String processTaco(Taco taco,
+  public String processTaco(@Valid Taco taco,
       @ModelAttribute TacoOrder tacoOrder) {
     tacoOrder.addTaco(taco);
     log.info("Processing taco: {}", taco);
