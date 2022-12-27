@@ -2,8 +2,10 @@ package com.example.TacoCloud.controllers;
 
 
 import com.example.TacoCloud.entities.TacoOrder;
+import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,8 +24,12 @@ public class OrderController {
   }
 
   @PostMapping
-  public String processOrder(TacoOrder order,
+  public String processOrder(@Valid TacoOrder order, BindingResult bindingResult,
       SessionStatus sessionStatus) {
+    if(bindingResult.hasErrors()) {
+    return "orderForm";
+    }
+
     log.info("Order submitted: {}", order);
     sessionStatus.setComplete();
 
